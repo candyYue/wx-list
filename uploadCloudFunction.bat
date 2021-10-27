@@ -1,0 +1,1 @@
+"D:\应用\微信web开发者工具\cli.bat" cloud functions deploy --e lovenini-26xm5 --n quickstartFunctions --r --project "D:\易米\dongyue\wx" --report_first --report

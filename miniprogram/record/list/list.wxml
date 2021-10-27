@@ -1,0 +1,56 @@
+<!--index.wxml-->
+<view class="container">
+  <van-transition show="{{ loadingShow }}" custom-class="block" class="loading">
+    <van-loading color="#1989fa"  size="48px"/>
+  </van-transition>
+  <van-dialog
+    use-slot
+    title="新建"
+    show="{{ addShow }}"
+    show-cancel-button
+    bind:close="onClose"
+    bind:confirm="onComfirm"
+  >
+    <van-cell-group>
+      <van-field
+        model:value="{{ addForm.title }}"
+        placeholder="请输入标题"
+        border="{{ false }}"
+      />
+      <!-- <van-field
+        model:value="{{ addForm.value }}"
+        placeholder="请输入内容"
+        border="{{ false }}"
+      /> -->
+      <van-field
+        model:value="{{ addForm.type }}"
+        placeholder="请选择类别"
+        border="{{ false }}"
+      />
+      
+      <van-cell title="请选择日期" value="{{ addForm.date }}" bind:click="onDateDisplay" />
+
+      <van-field
+        model:value="{{ addForm.price }}"
+        placeholder="请输入价格"
+        border="{{ false }}"
+      />
+      <van-field
+        model:value="{{ addForm.count }}"
+        placeholder="请输入数量"
+        border="{{ false }}"
+      />
+    </van-cell-group>
+  </van-dialog>
+
+  <van-action-sheet show="{{ dateshow }}" title="标题">
+    <van-calendar show="{{ true }}" bind:close="onDateClose" bind:confirm="onDateConfirm"  show-confirm="{{ false }}"/>
+  </van-action-sheet>
+
+  <van-button type="default" bindtap="addNewList">新建备忘录</van-button>
+  <view class="padding-20">列表</view>
+  <van-cell-group>
+    <van-cell title="{{array.title}}" value="{{item.title}}" label="{{item.type}}"  wx:for="{{menuList}}"  wx:key="index" icon="star-o"
+    bindtap="gotoStatistics"/>
+  </van-cell-group>
+</view>

@@ -1,0 +1,5 @@
+/* record/addlist/addlist.wxss */
+.add-type{
+    max-height: 250px;
+    overflow-y: auto;
+}

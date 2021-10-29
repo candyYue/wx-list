@@ -1,4 +1,5 @@
 {
+  "cloud": true,
   "pages": [
     "pages/index/index"
   ],
@@ -9,10 +10,11 @@
         "pages/test"
       ]
     }, {
-      "root": "record",
-      "name": "record",
+      "root": "consumption",
+      "name": "consumption",
       "pages": [
         "list/list",
+        "addlist/addlist",
         "statistics/statistics"
       ]
     }
@@ -30,7 +32,9 @@
     "van-dialog": "@vant/weapp/dialog/index",
     "van-field": "@vant/weapp/field/index",
     "van-calendar": "@vant/weapp/calendar/index",
-    "van-action-sheet": "@vant/weapp/action-sheet/index"
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-picker": "@vant/weapp/picker/index",
+    "van-checkbox": "@vant/weapp/checkbox/index"
   },
   "window": {
     "backgroundColor": "#F6F6F6",

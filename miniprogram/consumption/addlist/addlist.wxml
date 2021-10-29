@@ -1,0 +1,19 @@
+<view class="container">
+    <view class="add-type">
+      <van-grid>
+        <van-grid-item icon="photo-o" text="{{item}}"  bindtap="onTypeChange" wx:for="{{types}}"  wx:key="index" />
+      </van-grid>
+    </view>
+
+    <van-field model:value="{{ addForm.title }}" placeholder="请输入备注" border="{{ false }}"/>
+
+    <van-cell title="请选择日期" value="{{ addForm.date }}" bind:click="onDateDisplay" bindtap="onDisplay"  />
+    <van-calendar show="{{ show }}" bind:close="onDateClose" bind:confirm="onDateConfirm"  show-confirm="{{ false }}"/>
+
+    <van-field model:value="{{ addForm.price }}" placeholder="请输入价格" border="{{ false }}"/>
+
+    <van-field model:value="{{ addForm.count }}" placeholder="请输入数量" border="{{ false }}"/>
+    <van-checkbox value="{{ checked }}" bind:change="onChange">计算平均价</van-checkbox>
+
+    <van-button type="default"  bindtap="saveAction">确定</van-button>
+</view>

@@ -26,7 +26,7 @@ Page({
   },
   gotoMenu(){
     wx.navigateTo({
-      url:'../../record/list/list'
+      url:'../../consumption/list/list' 
     })
   }
 });

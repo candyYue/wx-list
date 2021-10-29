@@ -1,0 +1,13 @@
+<!--index.wxml-->
+<view class="container">
+  <van-transition show="{{ loadingShow }}" custom-class="block" class="loading">
+    <van-loading color="#1989fa"  size="48px"/>
+  </van-transition>
+  
+  <van-button type="default" bindtap="addNewList">新建备忘录</van-button>
+  <view class="padding-20">列表</view>
+  <van-cell-group>
+    <van-cell title="{{array.title}}" value="{{item.title}}" label="{{item.type}}"  wx:for="{{menuList}}"  wx:key="index" icon="star-o"
+    bindtap="gotoStatistics"/>
+  </van-cell-group>
+</view>

@@ -1,1 +1,16 @@
 /* record/list/list.wxss */
+.add-list-btn{
+    position: absolute;
+}
+.list-header{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center
+}
+.small-des{
+    position: absolute;
+    top: 5px;
+    font-size: 10px;
+    color:rgb(156, 153, 153)
+}

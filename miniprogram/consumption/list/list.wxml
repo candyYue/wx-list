@@ -4,10 +4,23 @@
     <van-loading color="#1989fa"  size="48px"/>
   </van-transition>
   
-  <van-button type="default" bindtap="addNewList">新建备忘录</van-button>
-  <view class="padding-20">列表</view>
+  <!-- <van-button type="default" bindtap="addNewList" class="add-list-btn">新增</van-button> -->
+  <view class="padding-20 list-header">
+    <view bindtap="chooseDate"><text class="small-des"></text><text>{{currentDate}}</text><van-icon name="arrow-down" size="20px" color='#34495e'/></view>
+    <view><text class="small-des">收入</text><text>2021</text></view>
+    <view><text class="small-des">支出</text><text>2021</text></view>
+  </view>
   <van-cell-group>
     <van-cell title="{{array.title}}" value="{{item.title}}" label="{{item.type}}"  wx:for="{{menuList}}"  wx:key="index" icon="star-o"
     bindtap="gotoStatistics"/>
   </van-cell-group>
+
+  <van-datetime-picker
+    wx:if="{{showChooseDate}}"
+    type="year-month"
+    value="{{ dateValue }}"
+    max-date="{{ maxDate }}"
+    bind:input="chooseDateInput"
+    bind:confirm="chooseDateConfirm"
+  />
 </view>

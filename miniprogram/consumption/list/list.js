@@ -1,4 +1,5 @@
 // record/list/list.js
+import { formatDate } from '../../utils/helper/format'
 Page({
 
     /**
@@ -6,6 +7,10 @@ Page({
      */
     data: {
         loadingShow:false,
+        showChooseDate:false,
+        dateValue: new Date().getTime(),
+        currentDate: '',
+        maxDate: new Date().getTime(),
         menuList: [
             {
                 title:"单元格", 
@@ -14,7 +19,7 @@ Page({
                 price:"描述信息",
                 count:"描述信息",
             }
-        ],
+        ]
     },
 
     /**
@@ -39,6 +44,21 @@ Page({
         } catch (error) {
             console.log("fetch cloudfunction error", error)
         }
+
+        this.setData({ currentDate: formatDate(this.data.dateValue) })
+    },
+    chooseDate(){
+        this.setData({ showChooseDate:true })
+    },
+    chooseDateInput(event) {
+        const date = formatDate(event.detail)
+        this.setData({
+            dateValue: event.detail,
+            currentDate: date,
+        });
+    },
+    chooseDateConfirm(){
+        this.setData({ showChooseDate:false })
     },
     addNewList(){
         wx.navigateTo({

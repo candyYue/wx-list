@@ -15,6 +15,8 @@
 - [地址](https://youzan.github.io/vant-weapp/#/home)
 
 
-常用api：model:value 双向绑定
+## 常用api：
+model:value 双向绑定
+data-自定义属性名='{{需要传递的数据}}'
 
 ## 云函数

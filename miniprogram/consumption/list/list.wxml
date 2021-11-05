@@ -4,7 +4,7 @@
     <van-loading color="#1989fa"  size="48px"/>
   </van-transition>
   
-  <!-- <van-button type="default" bindtap="addNewList" class="add-list-btn">新增</van-button> -->
+  <van-button type="default" bindtap="addNewList" class="add-list-btn">新增</van-button>
   <view class="padding-20 list-header">
     <view bindtap="chooseDate"><text class="small-des"></text><text>{{currentDate}}</text><van-icon name="arrow-down" size="20px" color='#34495e'/></view>
     <view><text class="small-des">收入</text><text>2021</text></view>

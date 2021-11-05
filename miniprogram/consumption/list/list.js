@@ -1,5 +1,5 @@
 // record/list/list.js
-import { formatDate } from '../../utils/helper/format'
+import { formatDate ,formatMonth} from '../../utils/helper/format'
 Page({
 
     /**
@@ -15,9 +15,9 @@ Page({
             {
                 title:"单元格", 
                 type:"内容",
-                date:"描述信息",
-                price:"描述信息",
-                count:"描述信息",
+                date:"日期",
+                price:"价格",
+                count:"数量",
             }
         ]
     },
@@ -25,33 +25,22 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    async onLoad(options) {
+    onLoad(options) {
         // setTimeout(()=>{
         //     this.setData({
         //         loadingShow:false
         //     })
         // },1000)
-
-        try {
-            const cloudResult = await wx.cloud.callFunction({
-              name: 'consumptionFun', // 云函数名称
-              data:{ // 传给云函数的参数
-                  action:'getlist',
-                  data: {}
-              }
-            })
-            console.log("fetch cloudfunction success", cloudResult.result)
-        } catch (error) {
-            console.log("fetch cloudfunction error", error)
-        }
-
-        this.setData({ currentDate: formatDate(this.data.dateValue) })
+        
+        this.setData({  currentDate: formatDate(this.data.dateValue, 2) })
+        this.getList()
     },
     chooseDate(){
         this.setData({ showChooseDate:true })
+        this.getList()
     },
     chooseDateInput(event) {
-        const date = formatDate(event.detail)
+        const date = formatDate(event.detail, 2)
         this.setData({
             dateValue: event.detail,
             currentDate: date,
@@ -67,6 +56,19 @@ Page({
     },
     getUserInfo(event) {
         console.log(event);
+    },
+    async getList(){
+        let list = []
+        const date = formatMonth(this.data.dateValue)
+        const cloudResult = await wx.cloud.callFunction({
+            name: 'consumptionFun', // 云函数名称
+            data:{ // 传给云函数的参数
+                action:'getlistbydate',
+                data: { type: 1 ,start_time: date[0], end_time: date[1]}
+            }
+        })
+        list = cloudResult.result.event.list
+        this.setData({  menuList: list })
     },
     // onComfirm(){
     //     const { title,type,date,price,count} = this.data.addForm

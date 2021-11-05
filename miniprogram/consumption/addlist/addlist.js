@@ -57,10 +57,10 @@ Page({
     },
 
     onDateConfirm(event) {
-        const date = formatDate(event.detail)
+        // const date = formatDate(event.detail)
         this.setData({
             show: false,
-            ["addForm.date"]: date
+            ["addForm.date"]: new Date(event.detail).getTime()
         });
     },
     saveAction(){

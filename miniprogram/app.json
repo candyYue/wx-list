@@ -1,8 +1,23 @@
 {
   "cloud": true,
   "pages": [
+    "pages/list/list",
+    "pages/statistics/statistics",
     "pages/index/index"
   ],
+  "tabBar": {
+    "custom": true,
+    "color": "#000000",
+    "selectedColor": "#000000",
+    "backgroundColor": "#000000",
+    "list": [{
+      "pagePath": "pages/list/list",
+      "text": "列表"
+    }, {
+      "pagePath": "pages/statistics/statistics",
+      "text": "统计"
+    }]
+  },
   "subpackages": [
     {
       "root": "packageA",
@@ -13,9 +28,7 @@
       "root": "consumption",
       "name": "consumption",
       "pages": [
-        "list/list",
-        "addlist/addlist",
-        "statistics/statistics"
+        "addlist/addlist"
       ]
     }
   ],
@@ -35,7 +48,9 @@
     "van-action-sheet": "@vant/weapp/action-sheet/index",
     "van-picker": "@vant/weapp/picker/index",
     "van-checkbox": "@vant/weapp/checkbox/index",
-    "van-datetime-picker": "@vant/weapp/datetime-picker/index"
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index"
   },
   "window": {
     "backgroundColor": "#F6F6F6",

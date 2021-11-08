@@ -1,5 +1,5 @@
 // record/addlist/addlist.js
-import { formatDate } from '../../utils/helper/format'
+import { categories } from '../../utils/config/types'
 Page({
     /**
      * 页面的初始数据
@@ -12,27 +12,16 @@ Page({
             date:'',
             price:'',
             count:'',
-            average: 0 //平均价
+            average: 0, //平均价
+            income: 0
         },
         activeType:0,
-        types: [
-            '购物', 
-            '日用', 
-            '餐饮', 
-            '交通',
-            '蔬菜水果',
-            '零食', 
-            '运动', 
-            '娱乐社交', 
-            '居家', 
-            '孩子', 
-            '旅行', 
-            '烟酒'],
+        categories
     },
     onTypeChange(event) {
         const index = event.currentTarget.dataset.index || 0
-        const type = this.data.types[index]
-        this.setData({ ['addForm.type']: type });
+        // const type = this.data.types[index]
+        this.setData({ ['addForm.type']: index });
     },
     //input输入
     updateForm(event){

@@ -1,5 +1,5 @@
 /* record/trend/trend.wxss */
-ec-canvas {
+.statiscs, ec-canvas {
     width: 100%;
     height: 600rpx;
 }

@@ -1,14 +1,15 @@
 <!--index.wxml-->
 <view class="container">
-  <van-transition show="{{ loadingShow }}" custom-class="block" class="loading">
+  <!-- <van-transition show="{{ loadingShow }}" custom-class="block" class="loading">
     <van-loading color="#1989fa"  size="48px"/>
-  </van-transition>
+  </van-transition> -->
   
-  <van-button type="default" bindtap="addNewList" class="add-list-btn">新增</van-button>
+  
+
   <view class="padding-20 list-header">
     <view bindtap="chooseDate"><text class="small-des"></text><text>{{currentDate}}</text><van-icon name="arrow-down" size="20px" color='#34495e'/></view>
-    <view><text class="small-des">收入</text><text>2021</text></view>
-    <view><text class="small-des">支出</text><text>2021</text></view>
+    <view><text class="small-des">收入</text><text>{{income}}</text></view>
+    <view><text class="small-des">支出</text><text>{{spending}}</text></view>
   </view>
   <van-cell-group>
     <van-cell title="{{array.title}}" value="{{item.title}}" label="{{item.type}}"  wx:for="{{menuList}}"  wx:key="index" icon="star-o"

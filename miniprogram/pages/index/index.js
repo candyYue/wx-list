@@ -4,7 +4,8 @@ const { envList } = require('../../envList.js');
 
 Page({
   data: {
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    active: 0
   },
   onLoad: function() {
     // 查看是否授权
@@ -24,9 +25,16 @@ Page({
   bindGetUserInfo (e) {
     console.log(e.detail.userInfo)
   },
-  gotoMenu(){
-    wx.navigateTo({
-      url:'../../consumption/list/list' 
-    })
+  changePage(event){
+    if(event.detail.name===1){
+      // wx.navigateTo({
+      //   url:'../../consumption/statistics/statistics' 
+      // })
+    }
+  },
+  addNewList(){
+    // wx.navigateTo({
+    //   url:'../../consumption/list/list' 
+    // })
   }
 });

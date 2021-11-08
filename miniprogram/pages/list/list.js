@@ -19,7 +19,9 @@ Page({
                 price:"价格",
                 count:"数量",
             }
-        ]
+        ],
+        income: 0,
+        spending: 0
     },
 
     /**
@@ -31,13 +33,17 @@ Page({
         //         loadingShow:false
         //     })
         // },1000)
-        
+        if (typeof this.getTabBar === 'function' &&
+            this.getTabBar()) {
+            this.getTabBar().setData({
+                selected: 0
+            })
+        }
         this.setData({  currentDate: formatDate(this.data.dateValue, 2) })
         this.getList()
     },
     chooseDate(){
         this.setData({ showChooseDate:true })
-        this.getList()
     },
     chooseDateInput(event) {
         const date = formatDate(event.detail, 2)
@@ -48,11 +54,12 @@ Page({
     },
     chooseDateConfirm(){
         this.setData({ showChooseDate:false })
+        this.getList()
     },
     addNewList(){
-        wx.navigateTo({
-            url:'../addlist/addlist'
-        })
+        // wx.navigateTo({
+        //     url:'../addlist/addlist'
+        // })
     },
     getUserInfo(event) {
         console.log(event);
@@ -68,7 +75,17 @@ Page({
             }
         })
         list = cloudResult.result.event.list
-        this.setData({  menuList: list })
+        if(list&&list.length){
+            const spending = list.reduce(function (prev, cur) {
+                return prev + cur.dailSpending;
+            },0);
+            this.setData({ 
+                spending: spending
+            })
+        }
+        this.setData({  
+            menuList: list
+        })
     },
     // onComfirm(){
     //     const { title,type,date,price,count} = this.data.addForm
@@ -76,9 +93,8 @@ Page({
     //     this.setData({ menuList: this.data.menuList.concat(addItem) });
     // },
     gotoStatistics(e){
-        console.log(e)
-        wx.navigateTo({
-            url:'../statistics/statistics'
-        })
+        // wx.navigateTo({
+        //     url:'../statistics/statistics'
+        // })
     }
 })

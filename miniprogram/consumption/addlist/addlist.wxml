@@ -1,7 +1,7 @@
 <view class="container">
     <view class="add-type">
       <van-grid>
-        <van-grid-item icon="photo-o" text="{{item}}"  bindtap="onTypeChange" wx:for="{{types}}"  wx:key="index" data-index='{{index}}'/>
+        <van-grid-item icon="photo-o" text="{{item.label}}"  bindtap="onTypeChange" wx:for="{{categories}}"  wx:key="index" data-index='{{index}}'/>
       </van-grid>
     </view>
 
@@ -11,7 +11,7 @@
     <van-cell title="请选择日期" value="{{ addForm.date }}" bind:click="onDateDisplay" bindtap="onDisplay"  />
     <van-calendar show="{{ show }}" bind:close="onDateClose" bind:confirm="onDateConfirm"  show-confirm="{{ false }}"/>
 
-    <van-field model:value="{{ addForm.price }}" placeholder="请输入价格" border="{{ false }}"
+    <van-field model:value="{{ addForm.price }}" placeholder="请输入总价格" border="{{ false }}"
     bind:input = "updateForm" data-name='price'/>
 
     <van-field model:value="{{ addForm.count }}" placeholder="请输入数量" border="{{ false }}"

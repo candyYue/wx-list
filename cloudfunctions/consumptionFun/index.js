@@ -39,10 +39,30 @@ async function getlist(event, wxContext) {
     }
   })
 }
-
+function groupFn(arr,name){
+  const list = []
+  arr.forEach(element => {
+    const groupName = element[name]
+    const index = list.findIndex(v=>v[name]===groupName)
+    if(index>-1){
+      list[index].listItem.push(element),
+      list[index].dailSpending = list[index].dailSpending + element.price
+      list[index].dailIncome = list[index].dailIncome + element.income
+    }else{
+      list.push({
+        [name]: groupName,
+        listItem:[element],
+        dailSpending:element.price,
+        dailIncome:element.income || 0,
+      })
+    }
+  })
+  return list 
+}
 async function getlistbydate(event, wxContext) {
   //直接返回调取结果。
   let res =[]
+  let list = []
   if(event.data && event.data.type){
     const { type, start_time, end_time } = event.data
     if(type===1){ //按月筛选
@@ -50,28 +70,28 @@ async function getlistbydate(event, wxContext) {
         _openid: wxContext.OPENID,
         date: _.gte(start_time).lte(end_time)
       }).get()
-    }else{ //按日期筛选
-
+      if(res.data&&res.data.length){
+        list = groupFn(res.data, 'date')
+        list.sort(sortDownDate)
+      }
     }
   }else{
     res = await consumptions.where({ _openid: wxContext.OPENID}).get()
   }
-  const list = []
+  return { list:list }
+}
+
+async function getlistbytype(event, wxContext) {
+  let list = []
+  const { start_time, end_time } = event.data
+  const res = await consumptions.where({ 
+    _openid: wxContext.OPENID,
+    date: _.gte(start_time).lte(end_time)
+  }).get()
   if(res.data&&res.data.length){
-    res.data.forEach(element => {
-      const date = element.date
-      const index = list.findIndex(v=>v.date===date)
-      if(index>-1){
-        list[index].listItem.push(element)
-      }else{
-        list.push({
-          date,
-          listItem:[element]
-        })
-      }
-    })
+    list = groupFn(res.data, 'type')
   }
-  return {list:list.sort(sortDownDate)}
+  return { list:list }
 }
 // 云函数入口函数
 exports.main = async (event, context) => {
@@ -87,7 +107,9 @@ exports.main = async (event, context) => {
         case 'getlistbydate': {
           result = await getlistbydate(event, wxContext)
         }
-        console.log(result)
+        case 'getlistbytype': {
+          result = await getlistbytype(event, wxContext)
+        }
         default: 
         return {
             event: { ...result, event},

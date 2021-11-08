@@ -1,6 +1,6 @@
 /* record/list/list.wxss */
 .add-list-btn{
-    position: absolute;
+    text-align: center;
 }
 .list-header{
     display:flex;
@@ -10,7 +10,7 @@
 }
 .small-des{
     position: absolute;
-    top: 5px;
+    top: 25px;
     font-size: 10px;
     color:rgb(156, 153, 153)
 }

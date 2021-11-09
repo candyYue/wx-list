@@ -32,9 +32,4 @@ Page({
       // })
     }
   },
-  addNewList(){
-    // wx.navigateTo({
-    //   url:'../../consumption/list/list' 
-    // })
-  }
 });

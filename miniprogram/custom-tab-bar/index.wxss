@@ -28,12 +28,21 @@
     flex-direction: column;
   }
   
-  .tab-bar-item cover-image {
+  .tab-bar-item .cover-image {
     width: 27px;
     height: 27px;
   }
   
-  .tab-bar-item cover-view {
+  .tab-bar-item .cover-view {
     font-size: 10px;
   }
   
+  .add-btn{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -15px;
+    z-index: 999;
+    width: 30px;
+    border-radius: 50%;
+  }

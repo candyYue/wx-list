@@ -11,10 +11,20 @@
     <view><text class="small-des">收入</text><text>{{income}}</text></view>
     <view><text class="small-des">支出</text><text>{{spending}}</text></view>
   </view>
-  <van-cell-group>
-    <van-cell title="{{array.title}}" value="{{item.title}}" label="{{item.type}}"  wx:for="{{menuList}}"  wx:key="index" icon="star-o"
-    bindtap="gotoStatistics"/>
-  </van-cell-group>
+
+  <view  class="list-body">
+    <view wx:for="{{menuList}}" wx:key="index" class="list-content">
+      <view class="list-date">
+        <text>{{item.date}}</text>
+        <text>支出：{{item.dailSpending}}</text>
+      </view>
+      
+      <view wx:for="{{item.listItem}}"  wx:key='index'  class="list-item">
+        <text class="list-item-title">{{item.title}}</text>
+        <text class="list-item-price">{{item.price}}</text>
+      </view>
+    </view>
+  </view>
 
   <van-datetime-picker
     wx:if="{{showChooseDate}}"

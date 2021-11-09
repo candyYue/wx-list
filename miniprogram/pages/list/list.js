@@ -27,7 +27,7 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad(options) {
+    onShow(options) {
         // setTimeout(()=>{
         //     this.setData({
         //         loadingShow:false
@@ -56,11 +56,7 @@ Page({
         this.setData({ showChooseDate:false })
         this.getList()
     },
-    addNewList(){
-        // wx.navigateTo({
-        //     url:'../addlist/addlist'
-        // })
-    },
+    
     getUserInfo(event) {
         console.log(event);
     },
@@ -70,8 +66,8 @@ Page({
         const cloudResult = await wx.cloud.callFunction({
             name: 'consumptionFun', // 云函数名称
             data:{ // 传给云函数的参数
-                action:'getlistbydate',
-                data: { type: 1 ,start_time: date[0], end_time: date[1]}
+                action:'getlistbytype',
+                data: { type: 'month' ,start_time: date[0], end_time: date[1]}
             }
         })
         list = cloudResult.result.event.list
@@ -83,6 +79,7 @@ Page({
                 spending: spending
             })
         }
+        console.log('list', cloudResult)
         this.setData({  
             menuList: list
         })

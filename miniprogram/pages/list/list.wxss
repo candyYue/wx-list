@@ -8,6 +8,33 @@
     justify-content:space-between;
     align-items:center
 }
+.list-content{
+    padding: 10px 0;
+    overflow-y: auto;
+}
+.list-content .list-date{
+    padding:0 10px;
+    color: #969799;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ebedf0;
+    font-size: 10px;
+    line-height: 18px;
+}
+.list-item{
+    color: #606265;
+    padding: 0 10px;
+    height: 24px;
+    width: 100%;
+    line-height: 24px;
+    font-size: 12px;
+}
+.list-item-title{
+    float: left;
+}
+.list-item-price{
+    float: right;
+}
 .small-des{
     position: absolute;
     top: 25px;

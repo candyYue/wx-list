@@ -9,6 +9,11 @@ page,.container{
   height: 100%;
   font-size: 14px;
 }
+view {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .padding-20{
   padding: 20px;
 }

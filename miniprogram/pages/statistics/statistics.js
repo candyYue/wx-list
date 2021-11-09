@@ -25,11 +25,11 @@ Page({
             lazyLoad: true, // 延迟加载
         }
     },
-    async onLoad() {
+    async onShow() {
         if (typeof this.getTabBar === 'function' &&
             this.getTabBar()) {
             this.getTabBar().setData({
-                selected: 0
+                selected: 1
             })
         }
         const date = [1635696000000, 1638287999999]
@@ -37,13 +37,13 @@ Page({
             name: 'consumptionFun', // 云函数名称
             data:{ // 传给云函数的参数
                 action:'getlistbytype',
-                data: { start_time: date[0], end_time: date[1]}
+                data: { type:'type',start_time: date[0], end_time: date[1]}
             }
         })
-        console.log(cloudResult)
-        // this.setData({
-        //     ['ec.initChart']: this.initChart()
-        // })
+        console.log('statistics', cloudResult)
+        this.setData({
+            ['ec.initChart']: this.initChart()
+        })
     },
     async initChart() {
         this.selectComponent('#mychart-dom-bar').init((canvas, width, height, dpr) => {

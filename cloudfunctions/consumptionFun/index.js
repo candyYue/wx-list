@@ -40,6 +40,7 @@ async function getlist(event, wxContext) {
   })
 }
 function groupFn(arr,name){
+  console.log(name)
   const list = []
   arr.forEach(element => {
     const groupName = element[name]
@@ -59,37 +60,23 @@ function groupFn(arr,name){
   })
   return list 
 }
-async function getlistbydate(event, wxContext) {
+async function getlistbytype(event, wxContext) {
   //直接返回调取结果。
   let res =[]
   let list = []
-  if(event.data && event.data.type){
-    const { type, start_time, end_time } = event.data
-    if(type===1){ //按月筛选
-      res = await consumptions.where({ 
-        _openid: wxContext.OPENID,
-        date: _.gte(start_time).lte(end_time)
-      }).get()
-      if(res.data&&res.data.length){
-        list = groupFn(res.data, 'date')
-        list.sort(sortDownDate)
-      }
-    }
-  }else{
-    res = await consumptions.where({ _openid: wxContext.OPENID}).get()
-  }
-  return { list:list }
-}
-
-async function getlistbytype(event, wxContext) {
-  let list = []
-  const { start_time, end_time } = event.data
-  const res = await consumptions.where({ 
+  const { type, start_time, end_time } = event.data
+  res = await consumptions.where({ 
     _openid: wxContext.OPENID,
     date: _.gte(start_time).lte(end_time)
   }).get()
   if(res.data&&res.data.length){
-    list = groupFn(res.data, 'type')
+    if(type==='month'){ //按月筛选
+      list = groupFn(res.data, 'date')
+      list.sort(sortDownDate)
+    }
+    if(type==='type'){
+      list = groupFn(res.data, 'type')
+    }
   }
   return { list:list }
 }
@@ -103,9 +90,6 @@ exports.main = async (event, context) => {
         }
         case 'getlist': {
           result = await getlist(event, wxContext)
-        }
-        case 'getlistbydate': {
-          result = await getlistbydate(event, wxContext)
         }
         case 'getlistbytype': {
           result = await getlistbytype(event, wxContext)

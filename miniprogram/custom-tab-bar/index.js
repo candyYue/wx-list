@@ -1,15 +1,18 @@
 Component({
+    options: {
+      addGlobalClass:true
+    },
     data: {
       selected: 0,
       color: "#7A7E83",
       selectedColor: "#3cc51f",
       list: [{
-        pagePath: "/list/list",
+        pagePath: "../list/list",
         iconPath: "",
         selectedIconPath: "",
         text: "列表"
       }, {
-        pagePath: "/statistics/statistics",
+        pagePath: "../statistics/statistics",
         iconPath: "",
         selectedIconPath: "",
         text: "统计"
@@ -25,6 +28,11 @@ Component({
         this.setData({
           selected: data.index
         })
-      }
+      },
+      addNewList(){
+        wx.navigateTo({
+            url:'/consumption/addlist/addlist'
+        })
+      },
     }
   })

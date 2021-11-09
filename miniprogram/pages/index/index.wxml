@@ -2,7 +2,7 @@
 <view class="container">
   <van-tabs active="{{ active }}" bind:change="changePage">
     <van-tab title="记账">
-      <van-button icon="add-o" type="default"  bindtap="addNewList"> 新增 </van-button>
+      
     </van-tab>
     <van-tab title="统计">
       <!-- <statistics></statistics> -->

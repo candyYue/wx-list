@@ -1,4 +1,5 @@
 <!--record/trend/trend.wxml-->
 <view class="statiscs">
-    <!-- <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas> -->
+    statiscs
+    <ec-canvas id="mychart-dom-bar" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
 </view>

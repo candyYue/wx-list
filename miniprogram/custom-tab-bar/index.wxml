@@ -1,8 +1,8 @@
 <!--miniprogram/custom-tab-bar/index.wxml-->
 <cover-view class="tab-bar">
-  <van-button icon="add-o" type="default"  bindtap="addNewList"  size="small" class="add-btn"></van-button>
+  <!-- <van-button icon="add-o" type="default"  bindtap="addNewList"  size="small" class="add-btn"></van-button> -->
   <!-- <cover-view class="tab-bar-border"></cover-view> -->
-  <cover-view wx:for="{{list}}" wx:key="index" class="tab-bar-item" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
+  <cover-view wx:for="{{list}}" wx:key="index" class="{{item.middle == true?'tab-bar-item middle-tab-bar-item':'tab-bar-item'}}" data-path="{{item.pagePath}}" data-index="{{index}}" bindtap="switchTab">
     <!-- <cover-image src="{{selected === index ? item.selectedIconPath : item.iconPath}}" class="cover-image"></cover-image> -->
     <cover-view style="color: {{selected === index ? selectedColor : color}}" class="cover-view">{{item.text}}</cover-view>
   </cover-view>

@@ -1,0 +1,19 @@
+<!--components/dateNav/dateNave.wxml-->
+<view>
+    <view class="padding-20 list-header">
+    <view bindtap="chooseDate">
+       <text class="small-des"></text><text>{{currentDate}}</text>
+       <van-icon name="arrow-down" size="20px" color='#34495e'/>
+    </view>
+    <view wx:if="{{showMoney}}"><text class="small-des">收入：</text><text>{{income}}</text></view>
+    <view wx:if="{{showMoney}}"><text class="small-des">支出：</text><text>{{spending}}</text></view>
+</view>
+    <van-datetime-picker
+        wx:if="{{showChooseDate}}"
+        type="year-month"
+        value="{{ dateValue }}"
+        max-date="{{ maxDate }}"
+        bind:input="chooseDateInput"
+        bind:confirm="chooseDateConfirm"
+    />
+</view>

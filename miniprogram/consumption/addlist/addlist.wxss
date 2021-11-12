@@ -3,3 +3,35 @@
     max-height: 250px;
     overflow-y: auto;
 }
+.active-cate,.active-cate text{
+    color: #c7cdfd;
+}
+.add-form{
+    text-align: center;
+    padding: 20px 0;
+}
+.form-date .van-cell__title{
+    /* color: #969799; */
+    text-align: left;
+}
+.comfirm-btn .van-button{
+    border-radius: 4px;
+    height: 36px;
+}
+.form-type .van-radio{
+    display: inline-block;
+    width: 25%;
+}
+.form-type .van-radio>view{
+    display: inline-block
+}
+.form-count{
+    margin-top: 10px;
+}
+.display-flex >text{
+    margin-left: 5px;
+    font-size: 12px;
+    color: #969799;
+    line-height: 30px;
+    vertical-align: middle;
+}

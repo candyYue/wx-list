@@ -1,5 +1,9 @@
 /* record/trend/trend.wxss */
-.statiscs, ec-canvas {
+#mychart-dom-bar {
+    display: block;
     width: 100%;
-    height: 600rpx;
+    height: 400px;
+}
+.statistics{
+    text-align: center;
 }

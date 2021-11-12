@@ -1,0 +1,8 @@
+<!--components/typepercent.wxml-->
+<view class="type-percent">
+    <view  wx:for="{{list}}" wx:key="index" class="type-percent-item">
+        <text>{{spendingType[item.type].label}}: </text>
+        {{item.value}}
+        <van-progress color="{{spendingType[item.type].color}}" percentage="{{item.value}}" />
+    </view>
+</view>

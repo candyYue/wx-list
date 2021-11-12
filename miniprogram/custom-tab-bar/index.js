@@ -4,18 +4,25 @@ Component({
     },
     data: {
       selected: 0,
-      color: "#7A7E83",
-      selectedColor: "#3cc51f",
+      selectedColor: "#c4cafd",
       list: [{
         pagePath: "../list/list",
         iconPath: "",
         selectedIconPath: "",
-        text: "列表"
+        text: "列表",
+        middle:false
       }, {
         pagePath: "../statistics/statistics",
         iconPath: "",
         selectedIconPath: "",
-        text: "统计"
+        text: "+",
+        middle:true
+      }, {
+        pagePath: "../statistics/statistics",
+        iconPath: "",
+        selectedIconPath: "",
+        text: "统计",
+        middle:false
       }]
     },
     attached() {
@@ -24,10 +31,15 @@ Component({
       switchTab(e) {
         const data = e.currentTarget.dataset
         const url = data.path
-        wx.switchTab({url})
+        
         this.setData({
           selected: data.index
         })
+        if(data.index===1){
+          this.addNewList()
+        }else{
+          wx.switchTab({url})
+        }
       },
       addNewList(){
         wx.navigateTo({

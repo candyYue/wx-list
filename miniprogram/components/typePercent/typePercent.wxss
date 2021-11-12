@@ -1,0 +1,13 @@
+/* components/typepercent.wxss */
+.type-percent{
+    padding: 20px;
+}
+.type-percent-item{
+    height: 40px;
+    margin-bottom: 5px;
+    color: #606265;
+}
+.type-percent-item text{
+    display: inline-block;
+    margin-bottom: 10px;
+}

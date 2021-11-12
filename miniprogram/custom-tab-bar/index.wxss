@@ -1,15 +1,19 @@
 .tab-bar {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 48px;
-    background: white;
     display: flex;
     padding-bottom: env(safe-area-inset-bottom);
+    background: white;
+    height: 48px;
+    border-top: 1px solid #c4cafd;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); 
+    z-index: 999999;
   }
   
-  .tab-bar-border {
+  /* .tab-bar-border {
     background-color: rgba(0, 0, 0, 0.33);
     position: absolute;
     left: 0;
@@ -17,24 +21,42 @@
     width: 100%;
     height: 1px;
     transform: scaleY(0.5);
-  }
+  } */
   
   .tab-bar-item {
-    flex: 1;
+    display: inline-block;
+    color: #909399;
+    line-height: 48px;
+    width: 50%;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    vertical-align: middle;
   }
-  
+  .middle-tab-bar-item{
+    background: #c4cafd;
+    color: white;
+    border-radius: 50%;
+    position: fixed;
+    width: 48px;
+    height: 48px;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    text-align: center;
+    vertical-align: middle;
+  }
   .tab-bar-item .cover-image {
     width: 27px;
     height: 27px;
   }
   
   .tab-bar-item .cover-view {
-    font-size: 10px;
+    font-size: 18px;
+    line-height: 48px;
+  }
+  .middle-tab-bar-item .cover-view {
+    font-size: 28px;
+    line-height: 48px;
+    color: #fff;
   }
   
   .add-btn{

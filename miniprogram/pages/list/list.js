@@ -1,16 +1,15 @@
 // record/list/list.js
-import { formatDate ,formatMonth} from '../../utils/helper/format'
-Page({
+import { formatWeek ,formatMonth} from '../../utils/helper/format'
+import { spendingType ,incomeType} from '../../utils/config/types'
 
+var app = getApp()
+
+Page({
     /**
      * 页面的初始数据
      */
     data: {
         loadingShow:false,
-        showChooseDate:false,
-        dateValue: new Date().getTime(),
-        currentDate: '',
-        maxDate: new Date().getTime(),
         menuList: [
             {
                 title:"单元格", 
@@ -21,7 +20,11 @@ Page({
             }
         ],
         income: 0,
-        spending: 0
+        spending: 0,
+        spendingType,
+        incomeType,
+        workingSrc:'../../assets/icon/working.png',
+        noteSrc:'../../assets/icon/note.png',
     },
 
     /**
@@ -36,33 +39,18 @@ Page({
         if (typeof this.getTabBar === 'function' &&
             this.getTabBar()) {
             this.getTabBar().setData({
-                selected: 0
+                selected: 0,
             })
         }
-        this.setData({  currentDate: formatDate(this.data.dateValue, 2) })
-        this.getList()
-    },
-    chooseDate(){
-        this.setData({ showChooseDate:true })
-    },
-    chooseDateInput(event) {
-        const date = formatDate(event.detail, 2)
-        this.setData({
-            dateValue: event.detail,
-            currentDate: date,
-        });
-    },
-    chooseDateConfirm(){
-        this.setData({ showChooseDate:false })
         this.getList()
     },
     
     getUserInfo(event) {
         console.log(event);
     },
-    async getList(){
+    async getList(value){
         let list = []
-        const date = formatMonth(this.data.dateValue)
+        const date = value ? formatMonth(value.detail) : formatMonth(app.globalData.dateValue)
         const cloudResult = await wx.cloud.callFunction({
             name: 'consumptionFun', // 云函数名称
             data:{ // 传给云函数的参数
@@ -71,27 +59,31 @@ Page({
             }
         })
         list = cloudResult.result.event.list
+        list.forEach(v=>{
+            v.dateTime = formatWeek(v.date)
+            v.work = v.listItem.some(item=>item.formType==='2')
+            v.note = v.listItem.some(item=>item.formType==='3')
+        })
+        console.log(list)
         if(list&&list.length){
             const spending = list.reduce(function (prev, cur) {
                 return prev + cur.dailSpending;
             },0);
+            const income = list.reduce(function (prev, cur) {
+                return prev + cur.dailIncome;
+            },0);
             this.setData({ 
-                spending: spending
+                spending: spending,
+                income: income
+            })
+        }else{
+            this.setData({ 
+                spending: 0,
+                income: 0
             })
         }
-        console.log('list', cloudResult)
         this.setData({  
             menuList: list
         })
     },
-    // onComfirm(){
-    //     const { title,type,date,price,count} = this.data.addForm
-    //     const addItem ={title,type,date,price,count}
-    //     this.setData({ menuList: this.data.menuList.concat(addItem) });
-    // },
-    gotoStatistics(e){
-        // wx.navigateTo({
-        //     url:'../statistics/statistics'
-        // })
-    }
 })

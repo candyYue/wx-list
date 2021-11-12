@@ -3,35 +3,33 @@
   <!-- <van-transition show="{{ loadingShow }}" custom-class="block" class="loading">
     <van-loading color="#1989fa"  size="48px"/>
   </van-transition> -->
-  
-  
 
-  <view class="padding-20 list-header">
-    <view bindtap="chooseDate"><text class="small-des"></text><text>{{currentDate}}</text><van-icon name="arrow-down" size="20px" color='#34495e'/></view>
-    <view><text class="small-des">收入</text><text>{{income}}</text></view>
-    <view><text class="small-des">支出</text><text>{{spending}}</text></view>
-  </view>
-
+  <dateNav bind:updateList='getList' income="{{income}}" spending="{{spending}}"></dateNav>
+  
   <view  class="list-body">
     <view wx:for="{{menuList}}" wx:key="index" class="list-content">
       <view class="list-date">
-        <text>{{item.date}}</text>
+        <text>{{item.dateTime}}</text>
+        <image class="list-working" src="{{workingSrc}}" wx:if="{{item.work}}"></image>
+        <image class="list-note" src="{{noteSrc}}" wx:if="{{item.note}}"></image>
         <text>支出：{{item.dailSpending}}</text>
       </view>
       
       <view wx:for="{{item.listItem}}"  wx:key='index'  class="list-item">
-        <text class="list-item-title">{{item.title}}</text>
-        <text class="list-item-price">{{item.price}}</text>
+        <view wx:if="{{item.formType==='0'}}" >
+          <view class="list-item-title">{{spendingType[item.type].label}}
+            <text>{{item.title}}</text>
+          </view>
+          <view class="list-item-price-spending list-item-price">-{{item.price}}</view>
+        </view>
+        <view wx:if="{{item.formType==='1'}}" >
+          <view class="list-item-title">{{incomeType[item.type].label}}
+            <text>{{item.title}}</text>
+          </view>
+          <view class="list-item-price-income list-item-price">+{{item.price}}</view>
+        </view>
+
       </view>
     </view>
   </view>
-
-  <van-datetime-picker
-    wx:if="{{showChooseDate}}"
-    type="year-month"
-    value="{{ dateValue }}"
-    max-date="{{ maxDate }}"
-    bind:input="chooseDateInput"
-    bind:confirm="chooseDateConfirm"
-  />
 </view>

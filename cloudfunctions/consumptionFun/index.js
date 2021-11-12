@@ -28,33 +28,36 @@ async function addlist(event, wxContext) {
 
 async function getlist(event, wxContext) {
     //直接返回调取结果。
-   return consumptions.where({
+  const { start_time, end_time } = event.data
+  const res = await consumptions.where({
     _openid: wxContext.OPENID,
+    date: _.gte(start_time).lte(end_time)
   }).get({
     success: (res)=> {
+      
       return res
     },
     fail: (err)=> {
       return err
     }
   })
+  return res
 }
 function groupFn(arr,name){
-  console.log(name)
   const list = []
   arr.forEach(element => {
     const groupName = element[name]
     const index = list.findIndex(v=>v[name]===groupName)
     if(index>-1){
       list[index].listItem.push(element),
-      list[index].dailSpending = list[index].dailSpending + element.price
-      list[index].dailIncome = list[index].dailIncome + element.income
+      list[index].dailSpending = element.formType==='0'? (list[index].dailSpending + element.price):list[index].dailSpending 
+      list[index].dailIncome = element.formType==='1'? (list[index].dailIncome + element.price): list[index].dailIncome
     }else{
       list.push({
         [name]: groupName,
         listItem:[element],
-        dailSpending:element.price,
-        dailIncome:element.income || 0,
+        dailSpending:element.formType==='0'?+element.price:0,
+        dailIncome:element.formType==='1'? +element.price:0,
       })
     }
   })
@@ -65,17 +68,27 @@ async function getlistbytype(event, wxContext) {
   let res =[]
   let list = []
   const { type, start_time, end_time } = event.data
-  res = await consumptions.where({ 
-    _openid: wxContext.OPENID,
-    date: _.gte(start_time).lte(end_time)
-  }).get()
-  if(res.data&&res.data.length){
-    if(type==='month'){ //按月筛选
-      list = groupFn(res.data, 'date')
-      list.sort(sortDownDate)
+  if(type){
+    res = await consumptions.where({ 
+      _openid: wxContext.OPENID,
+      date: _.gte(start_time).lte(end_time)
+    }).get()
+    if(res.data&&res.data.length){
+      if(type==='month'){ //按月筛选
+        list = groupFn(res.data, 'date')
+        list.sort(sortDownDate)
+      }
+      if(type==='type'){
+        list = groupFn(res.data, 'type')
+      }
     }
-    if(type==='type'){
-      list = groupFn(res.data, 'type')
+  }else{
+    res = await consumptions.where({ 
+      _openid: wxContext.OPENID,
+      date: _.gte(start_time).lte(end_time)
+    }).get()
+    if(res.data&&res.data.length){
+      list = res.data
     }
   }
   return { list:list }

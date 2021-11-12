@@ -1,22 +1,41 @@
 // record/addlist/addlist.js
-import { categories } from '../../utils/config/types'
+import { spendingType ,incomeType} from '../../utils/config/types'
+import { formatDate } from '../../utils/helper/format'
+import Notify from '../../miniprogram_npm/@vant/weapp/notify/notify';
+
 Page({
     /**
      * 页面的初始数据
      */
     data: {
+        formType:'0',
         show: false, // 日历选择显隐
         addForm: {
             title:'',
-            type:'购物',
-            date:'',
+            type: 0,
+            date:new Date().getTime(),
             price:'',
-            count:'',
+            count:1,
             average: 0, //平均价
             income: 0
         },
-        activeType:0,
-        categories
+        chooseDate:formatDate(new Date().getTime()),
+        addType: []
+    },
+    onLoad(){
+        this.setData({
+            addType: spendingType
+        })
+    },
+    onFormTypeChange(event) {
+        const type = {
+            0: spendingType,
+            1: incomeType
+        }
+        this.setData({
+            formType: event.detail,
+            addType:type[+event.detail]
+        });
     },
     onTypeChange(event) {
         const index = event.currentTarget.dataset.index || 0
@@ -25,14 +44,12 @@ Page({
     },
     //input输入
     updateForm(event){
+        console.log(event)
         const name = event.currentTarget.dataset.name
         let detail = ''
         if(name==='price'){
-            detail = + event.detail.replace(/[^\d.]/g, "");
-        } else if(name ==='count'){
-            detail = + event.detail.replace(/\D/g, "") || 1
-        }
-        else{
+            detail = event.detail.replace(/[^\d.]/g, "");
+        } else{
             detail = event.detail
         }
         this.setData({ [`addForm.${name}`]: detail });
@@ -46,26 +63,44 @@ Page({
     },
 
     onDateConfirm(event) {
-        // const date = formatDate(event.detail)
+        const chooseDate = formatDate(event.detail)
+        const date = new Date(event.detail).getTime()
         this.setData({
             show: false,
-            ["addForm.date"]: new Date(event.detail).getTime()
+            ["addForm.date"]: date,
+            chooseDate: chooseDate
         });
     },
-    saveAction(){
-        this.setData({ 
-            ['addForm.average']: (this.data.addForm.price/ this.data.addForm.count).toFixed(2)
-        },async ()=> {
-            console.log(this.data.addForm)
-            const adddata = this.data.addForm
-            const cloudResult = await wx.cloud.callFunction({
-                name: 'consumptionFun', // 云函数名称
-                data:{ // 传给云函数的参数
-                    action:'addlist',
-                    data: adddata
-                }
+    async saveAction(){
+        //收入或支出
+        if((this.data.formType==='0'||this.data.formType==='1')&&!this.data.addForm.price){
+            Notify({ type: 'warning', message: '请输入金额' });
+            return false
+        }
+        // if(!this.data.addForm.date){
+        //     Notify({ type: 'warning', message: '请选择日期' });
+        //     return false
+        // }
+        const adddata = {
+            ...this.data.addForm,
+            // date: this.data.chooseDate,
+            average: this.data.formType==='0'?(this.data.addForm.price/ this.data.addForm.count).toFixed(2):0,
+            formType: this.data.formType
+        }
+        console.log(adddata)
+        const cloudResult = await wx.cloud.callFunction({
+            name: 'consumptionFun', // 云函数名称
+            data:{ // 传给云函数的参数
+                action:'addlist',
+                data: adddata
+            }
+        })
+        console.log("fetch cloudfunction success", cloudResult.result)
+        Notify({ type: 'success', message: '保存成功' });
+        setTimeout(()=>{
+            wx.switchTab({
+                url: '/pages/list/list'
             })
-            console.log("fetch cloudfunction success", cloudResult.result)
-        });
+        },1000)
     }
 })

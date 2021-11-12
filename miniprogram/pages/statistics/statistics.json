@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "ec-canvas": "/components/ec-canvas/ec-canvas"
+    "ec-canvas": "/components/ec-canvas/ec-canvas",
+    "typePercent": "/components/typePercent/typePercent",
+    "dateNav": "/components/dateNav/dateNav"
   }
 }

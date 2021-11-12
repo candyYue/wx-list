@@ -1,4 +1,4 @@
-const formatDate  = (date,type=1) => { //type默认年于日  type:2 年月
+const formatDate  = (date,type=1) => { //type默认年月日  type:2 年月
     date = new Date(date);
     if(type===2){
         return `${date.getFullYear()}/${date.getMonth() + 1}`;
@@ -16,8 +16,15 @@ const formatMonth  = (date) => { //返回格式  => [月初时间戳，月末时
     const endMonth = `${year2}/${month2}/1`
     return [new Date(startMonth).getTime(), new Date(endMonth).getTime() - 1];
 }
-
+const formatWeek = (date)=>{
+    date = new Date(date);
+    const dateStr = formatDate(date)
+    const arr = ['日','一','二','三','四','五','六']
+    const week = arr[date.getDay()]
+    return `${dateStr}  星期${week}`
+}
 export {
     formatDate,
-    formatMonth
+    formatMonth,
+    formatWeek
 }

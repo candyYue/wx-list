@@ -2,42 +2,52 @@
 .add-list-btn{
     text-align: center;
 }
-.list-header{
-    display:flex;
-    flex-direction:row;
-    justify-content:space-between;
-    align-items:center
-}
+
 .list-content{
     padding: 10px 0;
     overflow-y: auto;
 }
 .list-content .list-date{
-    padding:0 10px;
+    padding:0 20px;
     color: #969799;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #ebedf0;
-    font-size: 10px;
     line-height: 18px;
 }
 .list-item{
     color: #606265;
-    padding: 0 10px;
+    padding: 0 20px;
     height: 24px;
     width: 100%;
     line-height: 24px;
-    font-size: 12px;
 }
 .list-item-title{
     float: left;
 }
+.list-item-title text{
+    font-size: 12px;
+    margin-left: 5px;
+    color: #ccc;
+}
 .list-item-price{
     float: right;
 }
-.small-des{
-    position: absolute;
-    top: 25px;
-    font-size: 10px;
-    color:rgb(156, 153, 153)
+.list-item-price-spending{
+    color: #67C239;
+}
+.list-item-price-income{
+    color: #FE4F4E;
+}
+
+.list-working,.list-note{
+    width: 20px;
+    height: 20px;
+    margin: 0 -10px;
+}
+.van-datetime-picker{
+    position: fixed;
+    margin: 0 auto;
+    top: 0;
+    width: 100%;
 }

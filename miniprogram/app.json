@@ -1,8 +1,8 @@
 {
   "cloud": true,
   "pages": [
-    "pages/list/list",
     "pages/statistics/statistics",
+    "pages/list/list",
     "pages/index/index"
   ],
   "tabBar": {
@@ -50,14 +50,19 @@
     "van-checkbox": "@vant/weapp/checkbox/index",
     "van-datetime-picker": "@vant/weapp/datetime-picker/index",
     "van-tab": "@vant/weapp/tab/index",
-    "van-tabs": "@vant/weapp/tabs/index"
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-notify": "@vant/weapp/notify/index",
+    "van-progress": "@vant/weapp/progress/index",
+    "van-radio": "@vant/weapp/radio/index",
+    "van-radio-group": "@vant/weapp/radio-group/index",
+    "van-stepper": "@vant/weapp/stepper/index"
   },
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "QuickStart",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#c4cafd",
+    "navigationBarTitleText": "随手记",
+    "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json"
 }

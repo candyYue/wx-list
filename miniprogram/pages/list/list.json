@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "dateNav": "/components/dateNav/dateNav"
+  }
 }

@@ -9,19 +9,13 @@ Component({
         pagePath: "../list/list",
         iconPath: "",
         selectedIconPath: "",
-        text: "列表",
+        text: "账单",
         middle:false
-      }, {
-        pagePath: "../statistics/statistics",
+      },{
+        pagePath: "../memo/memo",
         iconPath: "",
         selectedIconPath: "",
-        text: "+",
-        middle:true
-      }, {
-        pagePath: "../statistics/statistics",
-        iconPath: "",
-        selectedIconPath: "",
-        text: "统计",
+        text: "备忘录",
         middle:false
       }]
     },
@@ -35,11 +29,11 @@ Component({
         this.setData({
           selected: data.index
         })
-        if(data.index===1){
-          this.addNewList()
-        }else{
+        // if(data.index===1){
+        //   this.addNewList()
+        // }else{
           wx.switchTab({url})
-        }
+        // }
       },
       addNewList(){
         wx.navigateTo({

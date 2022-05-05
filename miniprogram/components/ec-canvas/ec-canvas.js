@@ -1,5 +1,5 @@
-import WxCanvas from './wx-canvas';
-import * as echarts from './echarts';
+import WxCanvas from '../wx-canvas';
+import * as echarts from '../echarts';
 
 let ctx;
 

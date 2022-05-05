@@ -1,7 +1,8 @@
 // app.js
 App({
   globalData: {
-    dateValue: new Date().getTime()
+    dateValue: new Date().getTime(),
+    selected: 0
   },
   onLaunch: function () {
     if (!wx.cloud) {

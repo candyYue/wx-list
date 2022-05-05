@@ -12,6 +12,11 @@ Component({
         text: "账单",
         middle:false
       },{
+        pagePath: "../index/index",
+        iconPath: "",
+        selectedIconPath: "",
+        text: "新增"
+      },{
         pagePath: "../memo/memo",
         iconPath: "",
         selectedIconPath: "",
@@ -29,11 +34,12 @@ Component({
         this.setData({
           selected: data.index
         })
-        // if(data.index===1){
-        //   this.addNewList()
-        // }else{
+        console.log(data)
+        if(data.index===1){
+          this.addNewList()
+        }else{
           wx.switchTab({url})
-        // }
+        }
       },
       addNewList(){
         wx.navigateTo({

@@ -17,6 +17,10 @@
         "text": "shopping list"
       },
       {
+        "pagePath": "pages/index/index",
+        "text": "新增"
+      },
+      {
         "pagePath": "pages/memo/memo",
         "text": "备忘录"
       }

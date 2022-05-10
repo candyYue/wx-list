@@ -2,15 +2,16 @@
     <van-radio-group value="{{ formType }}" bind:change="onFormTypeChange" class="form-type">
       <van-radio name="0">支出</van-radio>
       <van-radio name="1">收入</van-radio>
-      <van-radio name="2">记加班</van-radio>
       <van-radio name="3">备忘录</van-radio>
     </van-radio-group>
 
+    <!-- 金额 收入/支出 -->
     <van-field model:value="{{ addForm.price }}" placeholder="请输入金额" border="{{ false }}" wx:if="{{formType==='0'||formType==='1'}}"
     bind:input = "updateForm" data-name='price'/>
 
     <view class="horizontal-line"></view>
 
+    <!-- 收入/支出类型 -->
     <view class="add-type" wx:if="{{formType==='0'||formType==='1'}}">
       <van-grid>
         <van-grid-item icon="photo-o" text="{{item.label}}"  class="{{addForm.type===index? 'active-cate': ''}}"
@@ -18,20 +19,23 @@
       </van-grid>
     </view>
 
-    <van-cell title="{{ chooseDate }}" bind:click="onDateDisplay" bindtap="onDisplay"  class="form-date"/>
+    <!-- 日期 -->
+    <van-cell title="{{ chooseDate }}" bind:click="onDateDisplay" bindtap="onDisplay"  class="form-date" wx:if="{{formType==='0'||formType==='1'}}"/>
     <van-calendar show="{{ show }}" bind:close="onDateClose" bind:confirm="onDateConfirm"  show-confirm="{{ false }}"/>
 
-    <van-field model:value="{{ addForm.title }}" placeholder="备注" border="{{ false }}" autosize
+    <!-- 备忘录 -->
+    <noteEditor wx:if="{{formType==='3'}}"></noteEditor>
+
+
+    <!-- 备注 -->
+    <van-field model:value="{{ addForm.title }}" placeholder="备注" border="{{ false }}" autosize wx:if="{{formType==='0'||formType==='1'}}"
     bind:input = "updateForm" data-name='title'/>
 
-    <view class="display-flex form-count">
-      <van-stepper value="{{ addForm.count }}" bind:change="updateForm" wx:if="{{formType==='0'||formType==='2'}}" data-name='count'/>
+    <!-- <view class="display-flex form-count">
+      <van-stepper value="{{ addForm.count }}" bind:change="updateForm" wx:if="{{formType==='0'}}" data-name='count'/>
       <text wx:if="{{formType==='0'}}">填入数量用于计算平均价格</text>
       <text wx:if="{{formType==='2'}}">加班小时数</text>
-    </view>
-    
-    <!-- <van-field model:value="" placeholder="请输入数量" border="{{ false }}" 
-    bind:input = "updateForm" data-name='count'/> -->
+    </view> -->
 
     <van-notify id="van-notify" />
     <van-button type="default"  bindtap="saveAction" class="comfirm-btn">确定</van-button>

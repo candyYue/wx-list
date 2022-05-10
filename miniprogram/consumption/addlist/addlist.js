@@ -16,7 +16,7 @@ Page({
             date:new Date().getTime(),
             price:'',
             count:1,
-            average: 0, //平均价
+            // average: 0, //平均价
             income: 0
         },
         chooseDate:formatDate(new Date().getTime()),
@@ -77,14 +77,9 @@ Page({
             Notify({ type: 'warning', message: '请输入金额' });
             return false
         }
-        // if(!this.data.addForm.date){
-        //     Notify({ type: 'warning', message: '请选择日期' });
-        //     return false
-        // }
         const adddata = {
             ...this.data.addForm,
-            // date: this.data.chooseDate,
-            average: this.data.formType==='0'?(this.data.addForm.price/ this.data.addForm.count).toFixed(2):0,
+            // average: this.data.formType==='0'?(this.data.addForm.price/ this.data.addForm.count).toFixed(2):0,
             formType: this.data.formType
         }
         console.log(adddata)
@@ -99,7 +94,7 @@ Page({
         Notify({ type: 'success', message: '保存成功' });
         setTimeout(()=>{
             wx.switchTab({
-                url: '/pages/list/list'
+                url: this.data.formType==='3'? '/pages/memo/memo' : '/pages/list/list'
             })
         },1000)
     }

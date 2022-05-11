@@ -20,8 +20,8 @@ Component({
     isIOS: false
   },
 
-  pageLifetimes:{
-    show(){
+  lifetimes:{
+    attached(){
       const platform = wx.getSystemInfoSync().platform
       const isIOS = platform === 'ios'
       this.setData({ isIOS})
@@ -87,6 +87,7 @@ Component({
       const formats = e.detail
       this.setData({ formats })
     },
+    //插入分割线
     insertDivider() {
       this.editorCtx.insertDivider({
         success: function () {
@@ -115,13 +116,10 @@ Component({
       const that = this
       wx.chooseImage({
         count: 1,
-        success: function (res) {
+        success: function (chooseResult) {
           that.editorCtx.insertImage({
-            src: res.tempFilePaths[0],
-            data: {
-              id: 'abcd',
-              role: 'god'
-            },
+            src: chooseResult.tempFilePaths[0],
+            data: { name: 'abcd' },
             width: '80%',
             success: function () {
               console.log('insert image success')

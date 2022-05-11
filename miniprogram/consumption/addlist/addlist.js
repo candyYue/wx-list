@@ -77,25 +77,54 @@ Page({
             Notify({ type: 'warning', message: '请输入金额' });
             return false
         }
-        const adddata = {
+        let adddata = {}
+        if(this.data.formType==='3'){ //备忘录
+          const that = this
+          this.selectComponent('.note-editor').editorCtx.getContents({
+            success:(res)=>{
+              adddata = {
+                formType: '3',
+                note: res.html
+              }
+              this.createSelectorQuery().select('p').boundingClientRect(rect => 
+                console.log(rect)
+              )
+              console.log(res)
+              //图片传到云端
+              // wx.cloud.uploadFile({
+              //   cloudPath:  `${Math.random().toString(36).substring(7)}.png`,// 指定上传到的云路径
+              //   filePath: 'noteImage/' + chooseResult.tempFilePaths[0],// 指定要上传的⽂件的⼩程序临时⽂件路径
+              //   success: res => {
+              //    console.log('上传成功', res)
+              //    if (res.fileID) {
+              //    }
+              //   }
+              // })
+              // that.cloudSave(adddata)
+            }
+          })
+        }else{
+          adddata = {
             ...this.data.addForm,
             // average: this.data.formType==='0'?(this.data.addForm.price/ this.data.addForm.count).toFixed(2):0,
             formType: this.data.formType
+          }
+          this.cloudSave(adddata)
         }
-        console.log(adddata)
-        const cloudResult = await wx.cloud.callFunction({
-            name: 'consumptionFun', // 云函数名称
-            data:{ // 传给云函数的参数
-                action:'addlist',
-                data: adddata
-            }
-        })
-        console.log("fetch cloudfunction success", cloudResult.result)
-        Notify({ type: 'success', message: '保存成功' });
-        setTimeout(()=>{
-            wx.switchTab({
-                url: this.data.formType==='3'? '/pages/memo/memo' : '/pages/list/list'
-            })
-        },1000)
-    }
+    },
+    cloudSave(adddata){
+      wx.cloud.callFunction({
+        name: 'consumptionFun', // 云函数名称
+        data:{ // 传给云函数的参数
+            action:'addlist',
+            data: adddata
+        }
+      })
+      Notify({ type: 'success', message: '保存成功' });
+      setTimeout(()=>{
+          wx.switchTab({
+              url: this.data.formType==='3'? '/pages/memo/memo' : '/pages/list/list'
+          })
+      },1000)
+    },
 })

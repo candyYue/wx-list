@@ -26,22 +26,20 @@ async function addlist(event, wxContext) {
   })
 }
 
-async function getlist(event, wxContext) {
+async function getnotelist(event, wxContext) {
     //直接返回调取结果。
-  const { start_time, end_time } = event.data
   const res = await consumptions.where({
     _openid: wxContext.OPENID,
-    date: _.gte(start_time).lte(end_time)
+    formType:_.eq('3'),
   }).get({
     success: (res)=> {
-      
       return res
     },
     fail: (err)=> {
       return err
     }
   })
-  return res
+  return {list: res}
 }
 function groupFn(arr,name){
   const list = []
@@ -71,6 +69,7 @@ async function getlistbytype(event, wxContext) {
   if(type){
     res = await consumptions.where({ 
       _openid: wxContext.OPENID,
+      formType:_.eq('0').or(_.eq('1')),
       date: _.gte(start_time).lte(end_time)
     }).get()
     if(res.data&&res.data.length){
@@ -101,11 +100,11 @@ exports.main = async (event, context) => {
         case 'addlist': {
           result = await addlist(event, wxContext)
         }
-        case 'getlist': {
-          result = await getlist(event, wxContext)
-        }
         case 'getlistbytype': {
           result = await getlistbytype(event, wxContext)
+        }
+        case 'getnotelist': {
+          result = await getnotelist(event, wxContext)
         }
         default: 
         return {

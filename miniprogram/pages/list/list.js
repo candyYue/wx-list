@@ -59,12 +59,12 @@ Page({
             }
         })
         list = cloudResult.result.event.list
+        console.log(cloudResult.result.event)
         list.forEach(v=>{
             v.dateTime = formatWeek(v.date)
             v.work = v.listItem.some(item=>item.formType==='2')
             v.note = v.listItem.some(item=>item.formType==='3')
         })
-        console.log(list)
         if(list&&list.length){
             const spending = list.reduce(function (prev, cur) {
                 return prev + cur.dailSpending;

@@ -24,7 +24,7 @@
     <van-calendar show="{{ show }}" bind:close="onDateClose" bind:confirm="onDateConfirm"  show-confirm="{{ false }}"/>
 
     <!-- 备忘录 -->
-    <noteEditor wx:if="{{formType==='3'}}"></noteEditor>
+    <noteEditor wx:if="{{formType==='3'}}" class="note-editor"></noteEditor>
 
 
     <!-- 备注 -->

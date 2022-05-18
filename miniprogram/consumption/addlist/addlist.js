@@ -71,6 +71,21 @@ Page({
             chooseDate: chooseDate
         });
     },
+    async uploadImage(v){
+      const item = v
+      if(item.insert&&item.insert.image){
+        const res = await wx.cloud.uploadFile({
+          cloudPath:  `noteImage/${Math.random().toString(36).substring(7)}.png`,// 指定上传到的云路径
+          filePath: item.insert.image,// 指定要上传的⽂件的⼩程序临时⽂件路径
+        })
+        if (res.fileID) {
+          item.src = res.fileID
+        }
+        return item
+      }else{
+        return item
+      }
+    },
     async saveAction(){
         //收入或支出
         if((this.data.formType==='0'||this.data.formType==='1')&&!this.data.addForm.price){
@@ -79,28 +94,27 @@ Page({
         }
         let adddata = {}
         if(this.data.formType==='3'){ //备忘录
-          const that = this
           this.selectComponent('.note-editor').editorCtx.getContents({
             success:(res)=>{
-              adddata = {
-                formType: '3',
-                note: res.html
-              }
-              this.createSelectorQuery().select('p').boundingClientRect(rect => 
-                console.log(rect)
-              )
-              console.log(res)
+              const note = res.delta.ops
+              const promiseRes = Promise.all(note.map(v=>{
+                return this.uploadImage(v)
+              }))
+              promiseRes.then(result=>{
+                const html = result.map(v=>{
+                  if(v.insert&&v.insert.image){
+                    return `<p><img data-local="${v.attributes['data-local']}" width="${v.attributes['width']}" data-custom="${v.attributes['data-custom']}" src="${v.src}"></p>`
+                  }else{
+                    return `<p>${v.insert}</p>`
+                  }
+                }).join('')
+                adddata = {
+                  formType: '3',
+                  note: html
+                }
+              })
               //图片传到云端
-              // wx.cloud.uploadFile({
-              //   cloudPath:  `${Math.random().toString(36).substring(7)}.png`,// 指定上传到的云路径
-              //   filePath: 'noteImage/' + chooseResult.tempFilePaths[0],// 指定要上传的⽂件的⼩程序临时⽂件路径
-              //   success: res => {
-              //    console.log('上传成功', res)
-              //    if (res.fileID) {
-              //    }
-              //   }
-              // })
-              // that.cloudSave(adddata)
+              that.cloudSave(adddata)
             }
           })
         }else{
